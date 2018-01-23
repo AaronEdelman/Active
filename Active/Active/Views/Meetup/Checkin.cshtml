@@ -4,10 +4,6 @@
 }
 
 
-
-
-
-
 @using (Html.BeginForm("Checkin", "Meetup", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
 
@@ -163,6 +159,11 @@
 
 <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Create Activity</a>
 
+@*<style>
+    .modal{
+        background-color: forestgreen;
+    }
+</style>*@
 <div class="modal fade" id="myModal">
     <div class="modal-dialog">
         <div class="modal-content">

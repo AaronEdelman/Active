@@ -56,5 +56,35 @@ namespace Active.Controllers
         {
             return PartialView("_CreateActivity");
         }
+
+        [HttpPost]
+        public ActionResult CreateActivity(ActivityModel model)
+        {
+            var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            ActivityModel newActivity = new ActivityModel();
+            newActivity.Name = model.Name;
+            newActivity.CostPerUser = model.CostPerUser;
+            newActivity.CreatorId = UserId;
+            newActivity.Description = model.Description;
+            newActivity.TimeStart = DateTime.Now;
+            newActivity.TimeEnd = DateTime.Now.AddMinutes(model.ActivityLength);
+            newActivity.Area = DistanceFinder.ConvertInviteeArea(model.Area);
+            newActivity.Active = true;
+            newActivity.Latitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Latitude).First();
+            newActivity.Longitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Longitude).First();
+            try
+            {
+                foreach (var row in db.Activity)
+                    if (row.CreatorId == UserId && row.Active == true)
+                    {
+                        row.Active = false;
+                    }
+            }
+            catch
+            { }
+            db.Activity.Add(newActivity);
+            db.SaveChanges();
+            return RedirectToAction("Checkin");
+        }
     }
 }

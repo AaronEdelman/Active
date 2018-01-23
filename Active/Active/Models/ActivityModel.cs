@@ -24,6 +24,7 @@ namespace Active.Models
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:YYYY-MM-DD hh:mm:ss}", ApplyFormatInEditMode = true)]
         public DateTime TimeEnd { get; set; }
+        public double ActivityLength { get; set; }
         public float Latitude { get; set; }
         public float Longitude { get; set; }
         public float Area { get; set; }
