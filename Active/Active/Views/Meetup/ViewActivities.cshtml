@@ -50,7 +50,7 @@ else
         @Html.DisplayFor(modelItem => activity.CostPerUser)
         @Html.DisplayFor(modelItem => activity.TimeStart)
         @Html.DisplayFor(modelItem => activity.TimeEnd)
-        <button id="button" class="disabled" onclick="location.href='@Url.Action("JoinActivites", "Meetup", new { id = activity.Id })';return false;">Join</button>
+        <button type="button" disabled>Join</button>
         if (activity.Id == Model.ActivityJoined)
         {
         <button id ="button" onclick="location.href='@Url.Action("LeaveActivity", new { id = activity.Id })';return false;">Leave</button>

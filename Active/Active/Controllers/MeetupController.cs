@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Active.Models;
+using System.Data.Entity;
 
 namespace Active.Controllers
 {
@@ -185,5 +186,40 @@ namespace Active.Controllers
             joinedActivity.ActivityId = 0;
             return RedirectToAction("ViewActivities");
         }
+        [HttpGet]
+        public ActionResult MyInteractions()
+        {
+            var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+            MyInteractionsViewModel myInteractions = new MyInteractionsViewModel();
+            myInteractions.Interactions = new List<InteractionViewModel>();
+            UserToActivityViewModel userToActivity = new UserToActivityViewModel();
+            userToActivity.UserToActivities = new List<UserToActivityModel>();
+            foreach (var row in db.UserToActivity.Include(n => n.User))
+            {
+                userToActivity.UserToActivities.Add(row);
+            }
+            //Selects all activities the user has taken part in.
+            foreach (var row in db.UserToActivity.Include(n => n.Activity).Where(n => n.UserId == UserId).Where(n => n.Activity.TimeEnd < DateTime.Now))
+            {
+                //selects all other participants in those same activities
+                foreach (var person in userToActivity.UserToActivities.Where(n => n.ActivityId == row.ActivityId).Where(n => n.UserId != null))
+                {
+                    //do not include users previously reviewd by this user
+                    //string test = (from review in db.Rating where review.UserId == person.UserId && review.ReviewerId == UserId select review.UserId).First();
+                    InteractionViewModel interaction = new InteractionViewModel { Activity = row.Activity };
+                    interaction.User = person.User;
+                    if (interaction.User.Id != UserId)
+                    {
+                        myInteractions.Interactions.Add(interaction);
+                    }
+                }
+            }
+            return View(myInteractions);
+        }
+        //public ActionResult Rate (MyInteractionsViewModel model)
+        //{
+
+        //}
     }
 }

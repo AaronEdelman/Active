@@ -219,15 +219,22 @@
     <Compile Include="Migrations\201801241444453_Updated_lat_long_to_double.Designer.cs">
       <DependentUpon>201801241444453_Updated_lat_long_to_double.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801251905066_updated_rating_model.cs" />
+    <Compile Include="Migrations\201801251905066_updated_rating_model.Designer.cs">
+      <DependentUpon>201801251905066_updated_rating_model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
     <Compile Include="Models\CheckinModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\InteractionViewModel.cs" />
     <Compile Include="Models\MainPageViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MyInteractionsViewModel.cs" />
     <Compile Include="Models\RatingModel.cs" />
     <Compile Include="Models\UserToActivityModel.cs" />
+    <Compile Include="Models\UserToActivityViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -295,6 +302,7 @@
     <Content Include="Views\Meetup\Checkin.cshtml" />
     <Content Include="Views\Meetup\_CreateActivity.cshtml" />
     <Content Include="Views\Meetup\ViewActivities.cshtml" />
+    <Content Include="Views\Meetup\MyInteractions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -320,6 +328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801241444453_Updated_lat_long_to_double.resx">
       <DependentUpon>201801241444453_Updated_lat_long_to_double.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801251905066_updated_rating_model.resx">
+      <DependentUpon>201801251905066_updated_rating_model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

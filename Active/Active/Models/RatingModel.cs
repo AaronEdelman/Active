@@ -15,6 +15,8 @@ namespace Active.Models
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
         public int Rating { get; set; }
-
+        public string ReviewerId { get; set; }
+        [ForeignKey("ReviewerId")]
+        public ApplicationUser Reviewer { get; set; }
     }
 }
