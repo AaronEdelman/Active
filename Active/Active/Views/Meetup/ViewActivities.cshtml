@@ -1,0 +1,61 @@
+﻿@model Active.Models.MainPageViewModel
+
+
+<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Create Activity</a>
+
+@*<style>
+        .modal{
+            background-color: forestgreen;
+        }
+    </style>*@
+<div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dissmiss="modal">&times;</a>
+                <h3 class="modal-title">Activity</h3>
+            </div>
+            <div class="modal-body">
+                @Html.Partial("_CreateActivity", new Active.Models.ActivityModel())
+            </div>
+            <div class="modal-footer">
+                @*<a href="#" class="btn btn-default" data-dissmiss="modal">Cancel</a>
+                    <input type="reset" value="Submit" class="btn btn-success" id="btnSubmit">Submit</a>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.ActivityJoined == 0)
+{
+    foreach (var activity in Model.Activities)
+    {
+        @Html.DisplayFor(modelItem => activity.Name)
+        @Html.DisplayFor(modelItem => activity.Description)
+        @Html.DisplayFor(modelItem => activity.Area)
+        @Html.DisplayFor(modelItem => activity.CostPerUser)
+        @Html.DisplayFor(modelItem => activity.TimeStart)
+        @Html.DisplayFor(modelItem => activity.TimeEnd)
+        <button id="button" onclick="location.href='@Url.Action("JoinActivities", "Meetup", new { id = activity.Id })'">Join</button>
+
+    }
+}
+else
+{
+    foreach (var activity in Model.Activities)
+    {
+        @Html.DisplayFor(modelItem => activity.Name)
+        @Html.DisplayFor(modelItem => activity.Description)
+        @Html.DisplayFor(modelItem => activity.Area)
+        @Html.DisplayFor(modelItem => activity.CostPerUser)
+        @Html.DisplayFor(modelItem => activity.TimeStart)
+        @Html.DisplayFor(modelItem => activity.TimeEnd)
+        <button id="button" class="disabled" onclick="location.href='@Url.Action("JoinActivites", "Meetup", new { id = activity.Id })';return false;">Join</button>
+        if (activity.Id == Model.ActivityJoined)
+        {
+        <button id ="button" onclick="location.href='@Url.Action("LeaveActivity", new { id = activity.Id })';return false;">Leave</button>
+        }
+
+    }
+}
+

@@ -25,9 +25,9 @@ namespace Active.Models
         [DisplayFormat(DataFormatString = "{0:YYYY-MM-DD hh:mm:ss}", ApplyFormatInEditMode = true)]
         public DateTime TimeEnd { get; set; }
         public double ActivityLength { get; set; }
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
-        public float Area { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+        public double Area { get; set; }
         [Display(Name = "Cost per Invitee")]
         public float CostPerUser { get; set; }
         public bool Active { get; set; }

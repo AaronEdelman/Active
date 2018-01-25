@@ -7,7 +7,7 @@ using System.Web;
 
 namespace Active.Models
 {
-    public class RatingToUserModel
+    public class RatingModel
     {
         [Key]
         public int Id { get; set; }

@@ -1,4 +1,5 @@
-﻿@model Active.Models.CheckinModel
+﻿@model Active.Models.MainPageViewModel
+
 @{
     ViewBag.Title = "Checkin";
 }
@@ -7,8 +8,8 @@
 @using (Html.BeginForm("Checkin", "Meetup", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
 
-    @Html.HiddenFor(m => m.Latitude, new { @id = "latitude" })
-    @Html.HiddenFor(m => m.Longitude, new { @id = "longitude" })
+    @Html.HiddenFor(m => m.Checkin.Latitude, new { @id = "latitude" })
+    @Html.HiddenFor(m => m.Checkin.Longitude, new { @id = "longitude" })
 
 
     <!DOCTYPE html>
@@ -181,4 +182,7 @@
         </div>
     </div>
 </div>
-
+@*<div id="Partial">
+    <label>Activities in your area</label>
+    @Html.Action("ViewActivities", "Meetup", new { id = Model.ActivityJoined })
+</div>*@

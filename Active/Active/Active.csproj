@@ -211,11 +211,20 @@
     <Compile Include="Migrations\201801232236498_Updated_ActivityModel.Designer.cs">
       <DependentUpon>201801232236498_Updated_ActivityModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801241435401_Updated_Rating_model_name.cs" />
+    <Compile Include="Migrations\201801241435401_Updated_Rating_model_name.Designer.cs">
+      <DependentUpon>201801241435401_Updated_Rating_model_name.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801241444453_Updated_lat_long_to_double.cs" />
+    <Compile Include="Migrations\201801241444453_Updated_lat_long_to_double.Designer.cs">
+      <DependentUpon>201801241444453_Updated_lat_long_to_double.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ActivityModel.cs" />
     <Compile Include="Models\CheckinModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\MainPageViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RatingModel.cs" />
     <Compile Include="Models\UserToActivityModel.cs" />
@@ -285,9 +294,11 @@
     <Content Include="Views\Meetup\Index.cshtml" />
     <Content Include="Views\Meetup\Checkin.cshtml" />
     <Content Include="Views\Meetup\_CreateActivity.cshtml" />
+    <Content Include="Views\Meetup\ViewActivities.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Migrations\201801241443598_Updated_lat\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -303,6 +314,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801232236498_Updated_ActivityModel.resx">
       <DependentUpon>201801232236498_Updated_ActivityModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801241435401_Updated_Rating_model_name.resx">
+      <DependentUpon>201801241435401_Updated_Rating_model_name.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801241444453_Updated_lat_long_to_double.resx">
+      <DependentUpon>201801241444453_Updated_lat_long_to_double.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

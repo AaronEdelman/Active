@@ -24,7 +24,7 @@ namespace Active.Models
     {
         public DbSet<ActivityModel> Activity { get; set; }
         public DbSet<CheckinModel> Checkin { get; set; }
-        public DbSet<RatingToUserModel> RatingToUser { get; set; }
+        public DbSet<RatingModel> Rating { get; set; }
         public DbSet<UserToActivityModel> UserToActivity { get; set; }
 
         public ApplicationDbContext()
