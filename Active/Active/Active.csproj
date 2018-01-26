@@ -233,6 +233,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MyInteractionsViewModel.cs" />
     <Compile Include="Models\RatingModel.cs" />
+    <Compile Include="Models\RatingsViewModel.cs" />
     <Compile Include="Models\UserToActivityModel.cs" />
     <Compile Include="Models\UserToActivityViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

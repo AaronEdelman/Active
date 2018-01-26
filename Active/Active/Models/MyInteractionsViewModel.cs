@@ -9,5 +9,6 @@ namespace Active.Models
     {
         public int Id { get; set; }
         public List<InteractionViewModel> Interactions { get; set; }
+        public string RateeId { get; set; }
     }
 }

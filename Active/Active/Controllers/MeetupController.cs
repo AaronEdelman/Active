@@ -199,6 +199,13 @@ namespace Active.Controllers
             {
                 userToActivity.UserToActivities.Add(row);
             }
+            RatingsViewModel ratings = new RatingsViewModel();
+            ratings.Ratings = new List<RatingModel>();
+            foreach(var rating in db.Rating)
+            {
+                ratings.Ratings.Add(rating);
+            }
+
             //Selects all activities the user has taken part in.
             foreach (var row in db.UserToActivity.Include(n => n.Activity).Where(n => n.UserId == UserId).Where(n => n.Activity.TimeEnd < DateTime.Now))
             {
@@ -213,13 +220,26 @@ namespace Active.Controllers
                     {
                         myInteractions.Interactions.Add(interaction);
                     }
+                    foreach(var rating in ratings.Ratings.Where(n => n.UserId == person.UserId))
+                    {
+                        if (rating.ReviewerId == UserId)
+                        {
+                            myInteractions.Interactions.Remove(interaction);
+                        }
+                    }
                 }
             }
             return View(myInteractions);
         }
-        //public ActionResult Rate (MyInteractionsViewModel model)
-        //{
-
-        //}
+        public ActionResult Rate(int Id, string RateeId)
+        {
+            RatingModel rating = new RatingModel();
+            rating.Rating = Id;
+            rating.UserId = RateeId;
+            rating.ReviewerId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            db.Rating.Add(rating);
+            db.SaveChanges();
+            return RedirectToAction("MyInteractions");
+        }
     }
 }
