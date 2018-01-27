@@ -28,32 +28,33 @@
 
 @if (Model.ActivityJoined == 0)
 {
-    foreach (var activity in Model.Activities)
+    foreach (var activity in Model.Activities_Invitees)
     {
-        @Html.DisplayFor(modelItem => activity.Name)
-        @Html.DisplayFor(modelItem => activity.Description)
-        @Html.DisplayFor(modelItem => activity.Area)
-        @Html.DisplayFor(modelItem => activity.CostPerUser)
-        @Html.DisplayFor(modelItem => activity.TimeStart)
-        @Html.DisplayFor(modelItem => activity.TimeEnd)
-        <button id="button" onclick="location.href='@Url.Action("JoinActivities", "Meetup", new { id = activity.Id })'">Join</button>
+        @Html.DisplayFor(modelItem => activity.Activity.Name)
+        @Html.DisplayFor(modelItem => activity.Activity.Description)
+        @Html.DisplayFor(modelItem => activity.Activity.Area)
+        @Html.DisplayFor(modelItem => activity.Activity.CostPerUser)
+        @Html.DisplayFor(modelItem => activity.Activity.TimeStart)
+        @Html.DisplayFor(modelItem => activity.Activity.TimeEnd)
+        @Html.DropDownList("Joined" , activity.Invitees, htmlAttributes: new { @class = "form-control" })
+        <button id="button" onclick="location.href='@Url.Action("JoinActivities", "Meetup", new { id = activity.Activity.Id })'">Join</button>
 
     }
 }
 else
 {
-    foreach (var activity in Model.Activities)
+    foreach (var activity in Model.Activities_Invitees)
     {
-        @Html.DisplayFor(modelItem => activity.Name)
-        @Html.DisplayFor(modelItem => activity.Description)
-        @Html.DisplayFor(modelItem => activity.Area)
-        @Html.DisplayFor(modelItem => activity.CostPerUser)
-        @Html.DisplayFor(modelItem => activity.TimeStart)
-        @Html.DisplayFor(modelItem => activity.TimeEnd)
+        @Html.DisplayFor(modelItem => activity.Activity.Name)
+        @Html.DisplayFor(modelItem => activity.Activity.Description)
+        @Html.DisplayFor(modelItem => activity.Activity.Area)
+        @Html.DisplayFor(modelItem => activity.Activity.CostPerUser)
+        @Html.DisplayFor(modelItem => activity.Activity.TimeStart)
+        @Html.DisplayFor(modelItem => activity.Activity.TimeEnd)
         <button type="button" disabled>Join</button>
-        if (activity.Id == Model.ActivityJoined)
+        if (activity.Activity.Id == Model.ActivityJoined)
         {
-        <button id ="button" onclick="location.href='@Url.Action("LeaveActivity", new { id = activity.Id })';return false;">Leave</button>
+        <button id ="button" onclick="location.href='@Url.Action("LeaveActivity", new { id = activity.Activity.Id })';return false;">Leave</button>
         }
 
     }

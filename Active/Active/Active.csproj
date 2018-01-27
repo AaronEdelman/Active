@@ -203,6 +203,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Joiner.cs" />
     <Compile Include="Migrations\201801231530245_Activity_Checkin_Rating_UserToActivity_Models.cs" />
     <Compile Include="Migrations\201801231530245_Activity_Checkin_Rating_UserToActivity_Models.Designer.cs">
       <DependentUpon>201801231530245_Activity_Checkin_Rating_UserToActivity_Models.cs</DependentUpon>
@@ -223,8 +224,14 @@
     <Compile Include="Migrations\201801251905066_updated_rating_model.Designer.cs">
       <DependentUpon>201801251905066_updated_rating_model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801261626023_Updated_ApplicationUsers_Model.cs" />
+    <Compile Include="Migrations\201801261626023_Updated_ApplicationUsers_Model.Designer.cs">
+      <DependentUpon>201801261626023_Updated_ApplicationUsers_Model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ActivitiesViewModel.cs" />
+    <Compile Include="Models\Activity_InviteesViewModel.cs" />
     <Compile Include="Models\ActivityModel.cs" />
     <Compile Include="Models\CheckinModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -332,6 +339,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801251905066_updated_rating_model.resx">
       <DependentUpon>201801251905066_updated_rating_model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801261626023_Updated_ApplicationUsers_Model.resx">
+      <DependentUpon>201801261626023_Updated_ApplicationUsers_Model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

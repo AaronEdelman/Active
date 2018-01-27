@@ -133,33 +133,57 @@ namespace Active.Controllers
         {
         var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
-            // create available activities part of view
+            // create available activities
             MainPageViewModel main = new MainPageViewModel();
             main.ActivityJoined = model.Id;
-            main.Activities = new List<ActivityModel>();
+            main.Activities_Invitees = new List<Activity_InviteesViewModel>();
             main.UserToActivity = new List<UserToActivityModel>();
             foreach(var row in db.UserToActivity.Where(n => n.UserId == UserId))
             {
                 main.UserToActivity.Add(row);
             }
+            ActivitiesViewModel activities = new ActivitiesViewModel();
+            activities.Activities = new List<ActivityModel>();
+            foreach (var activity in db.Activity.Where(n => n.Active == true))
+            {
+                activities.Activities.Add(activity);
+            }
             try
             {
                 double userLatitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Latitude).First();
                 double userLongitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Longitude).First();
-                foreach (var activity in db.Activity.Where(n => n.Active == true))
+                foreach (var activity in activities.Activities)
                 {
+                    //find activites within creator's specified area
                     double activityDistance = DistanceFinder.FindActivitiesDistance(userLatitude, userLongitude, activity.Latitude, activity.Longitude);
                     if (activityDistance <= activity.Area)
                     {
-                        main.Activities.Add(activity);
+                        Activity_InviteesViewModel activity_Invitees = new Activity_InviteesViewModel();
+                        activity_Invitees.Activity = activity;
+                        //find users that joined that same activity.
+                        List<string> invitees = new List<string>();
                         
-                            foreach (var row in main.UserToActivity)
-                            { 
-                                if (row.ActivityId == activity.Id)
-                                {
-                                    main.ActivityJoined = row.ActivityId;
-                                }
+                        foreach (var invitee in db.UserToActivity.Include(n => n.User))
+                        {
+                            if (invitee.ActivityId == activity.Id && invitee.UserId != null)
+                            {
+                                Joiner joiner = new Joiner(invitee.User.FirstName, invitee.User.Rating, invitee.User.RatingCount);
+                                string listInvitee = joiner.CreateRatingString();
+                                invitees.Add(listInvitee);
                             }
+                        }
+                        
+                        activity_Invitees.Invitees = new SelectList(invitees);
+                        
+                        main.Activities_Invitees.Add(activity_Invitees);
+                        ViewData["Joined"] = new SelectList(invitees);
+                        foreach (var row in main.UserToActivity)
+                        { 
+                            if (row.ActivityId == activity.Id)
+                            {
+                                main.ActivityJoined = row.ActivityId;
+                            }
+                        }
                     }
                 }
             }
@@ -213,7 +237,6 @@ namespace Active.Controllers
                 foreach (var person in userToActivity.UserToActivities.Where(n => n.ActivityId == row.ActivityId).Where(n => n.UserId != null))
                 {
                     //do not include users previously reviewd by this user
-                    //string test = (from review in db.Rating where review.UserId == person.UserId && review.ReviewerId == UserId select review.UserId).First();
                     InteractionViewModel interaction = new InteractionViewModel { Activity = row.Activity };
                     interaction.User = person.User;
                     if (interaction.User.Id != UserId)
@@ -233,11 +256,15 @@ namespace Active.Controllers
         }
         public ActionResult Rate(int Id, string RateeId)
         {
+            var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             RatingModel rating = new RatingModel();
             rating.Rating = Id;
             rating.UserId = RateeId;
-            rating.ReviewerId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            rating.ReviewerId = UserId;
             db.Rating.Add(rating);
+            ApplicationUser user = db.Users.Find(UserId);
+            user.Rating += Id;
+            user.RatingCount += 1;
             db.SaveChanges();
             return RedirectToAction("MyInteractions");
         }
