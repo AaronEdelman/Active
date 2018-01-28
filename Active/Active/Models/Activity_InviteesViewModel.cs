@@ -10,5 +10,8 @@ namespace Active.Models
     {
         public ActivityModel Activity { get; set; }
         public SelectList Invitees { get; set; }
+        public string Distance { get; set; }
+        public string timeStart { get; set; }
+        public string timeEnd { get; set; }
     }
 }

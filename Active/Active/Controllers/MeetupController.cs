@@ -41,21 +41,6 @@ namespace Active.Controllers
                 }
             }
             db.SaveChanges();
-            // pass activity joined Id to partial view ViewActivities
-            MainPageViewModel main = new MainPageViewModel();
-            //main.Activities = new List<ActivityModel>();
-            //main.UserToActivity = new List<UserToActivityModel>();
-            //double userLatitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Latitude).First();
-            //double userLongitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Longitude).First();
-            //foreach (var row in db.Activity.Where(n => n.Active == true))
-            //{
-            //    double activityDistance = DistanceFinder.FindActivitiesDistance(userLatitude, userLongitude, row.Latitude, row.Longitude);
-            //    if(activityDistance <= row.Area)
-            //    {
-            //        main.Activities.Add(row);
-            //    }
-            //}
-
             return View();
         }
 
@@ -98,6 +83,10 @@ namespace Active.Controllers
             ActivityModel newActivity = new ActivityModel();
             newActivity.Name = model.Name;
             newActivity.CostPerUser = model.CostPerUser;
+            if (model.CostPerUser == 0)
+            {
+                newActivity.CostPerUser = 0;
+            }
             newActivity.CreatorId = UserId;
             newActivity.Description = model.Description;
             newActivity.TimeStart = DateTime.Now;
@@ -136,6 +125,7 @@ namespace Active.Controllers
             // create available activities
             MainPageViewModel main = new MainPageViewModel();
             main.ActivityJoined = model.Id;
+            main.UserId = UserId;
             main.Activities_Invitees = new List<Activity_InviteesViewModel>();
             main.UserToActivity = new List<UserToActivityModel>();
             foreach(var row in db.UserToActivity.Where(n => n.UserId == UserId))
@@ -160,6 +150,9 @@ namespace Active.Controllers
                     {
                         Activity_InviteesViewModel activity_Invitees = new Activity_InviteesViewModel();
                         activity_Invitees.Activity = activity;
+                        activity_Invitees.Distance = DistanceFinder.ConvertActivityDistance(activityDistance);
+                        activity_Invitees.timeStart = activity_Invitees.Activity.TimeStart.ToShortTimeString();
+                        activity_Invitees.timeEnd = activity_Invitees.Activity.TimeEnd.ToShortTimeString();
                         //find users that joined that same activity.
                         List<string> invitees = new List<string>();
                         

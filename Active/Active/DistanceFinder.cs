@@ -25,5 +25,40 @@ namespace Active
             double c = (float)Math.Sqrt(diffLatLong);
             return c;
         }
+
+        public static string ConvertActivityDistance(double area)
+        {
+            string distance = "0";
+
+            double miles = 0;
+            double feet = 0;
+            while(area > .00001)
+            {
+                if (area>.01916)
+                {
+                    miles += 1;
+                    area -= .01916;
+                }
+                else if (area > .00958)
+                {
+                    miles += .5;
+                    area -= .00958;
+                }
+                else if (area > .00001)
+                {
+                    feet += (area / .00001) * 2.75518F;
+                    area -= feet;
+                }
+            }
+            if (miles > 0)
+            {
+                distance = miles.ToString() + " miles";
+            }
+            if (miles == 0)
+            {
+                distance = feet.ToString() + " feet";
+            }
+            return distance;
+        }
     }
 }

@@ -12,5 +12,7 @@ namespace Active.Models
         public RatingModel Rating { get; set; }
         public List<UserToActivityModel> UserToActivity { get; set; }
         public int ActivityJoined { get; set; }
+        public string UserId { get; set; }
+        
     }
 }

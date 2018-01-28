@@ -16,7 +16,7 @@ namespace Active.Models
         public string Description { get; set; }
 
         [DataType(DataType.DateTime)]
-        [DisplayFormat(DataFormatString = "{0:YYYY-MM-DD hh:mm:ss}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:YYYY-MM-DD hh:mm}", ApplyFormatInEditMode = true)]
         [Display(Name = "Start Time")]
         public DateTime TimeStart { get; set; }
 
