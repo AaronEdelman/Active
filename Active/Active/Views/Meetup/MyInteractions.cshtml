@@ -5,20 +5,49 @@
 }
 
 <h2>MyInteractions</h2>
+<table class="table" width="80%">
 
-@foreach (var interaction in Model.Interactions)
-{
-    @Html.DisplayFor(modelItem => interaction.User.FirstName)
-    @Html.DisplayFor(modelItem => interaction.Activity.Name)
-    @Html.DisplayFor(modelItem => interaction.Activity.TimeStart)
-    @Html.HiddenFor(modelItem => interaction.User.Id)
-    <button id="button1" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 0 , RateeId = interaction.User.Id})'">No Show</button>
-    <button id="button2" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 1 , RateeId = interaction.User.Id})'">Garbage Person</button>
-    <button id="button3" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 2 , RateeId = interaction.User.Id})'">Not Great</button>
-    <button id="button4" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 3 , RateeId = interaction.User.Id})'">So-so</button>
-    <button id="button5" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 4 , RateeId = interaction.User.Id})'">Good</button>
-    <button id="button6" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 5 , RateeId = interaction.User.Id}) '">Awesome</button>
-}
+    @foreach (var interaction in Model.Interactions)
+    {
+        <tr>
+            <td>
+                <div>
+                    <p>@interaction.User.FirstName</p>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <p>@interaction.Activity.Name</p>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <p>@interaction.Activity.TimeStart</p>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <p>@interaction.User.Id</p>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <button id="button1" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 0 , RateeId = interaction.User.Id})'">No Show</button>
+                    <button id="button2" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 1 , RateeId = interaction.User.Id})'">Garbage Person</button>
+                    <button id="button3" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 2 , RateeId = interaction.User.Id})'">Not Great</button>
+                    <button id="button4" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 3 , RateeId = interaction.User.Id})'">So-so</button>
+                    <button id="button5" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 4 , RateeId = interaction.User.Id})'">Good</button>
+                    <button id="button6" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 5 , RateeId = interaction.User.Id}) '">Awesome</button>                
+                </div>
+            </td>
+        @*<button id="button1" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 0 , RateeId = interaction.User.Id})'">No Show</button>
+        <button id="button2" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 1 , RateeId = interaction.User.Id})'">Garbage Person</button>
+        <button id="button3" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 2 , RateeId = interaction.User.Id})'">Not Great</button>
+        <button id="button4" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 3 , RateeId = interaction.User.Id})'">So-so</button>
+        <button id="button5" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 4 , RateeId = interaction.User.Id})'">Good</button>
+        <button id="button6" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 5 , RateeId = interaction.User.Id}) '">Awesome</button>*@
+        </tr>
+    }
+</table>
 
 
- 

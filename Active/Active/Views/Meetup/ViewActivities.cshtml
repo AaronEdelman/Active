@@ -28,7 +28,7 @@
 
 @if (Model.ActivityJoined == 0)
 {
-    <table>
+    <table class="table" width="80%">
         <tr>
             <th>Activity</th>
             <th>Description</th>
@@ -81,23 +81,79 @@
                     <button id="button" onclick="location.href='@Url.Action("JoinActivities", "Meetup", new { id = activity.Activity.Id })'">Join</button>
                 </div>
             </td>
+            <td>
+                <div>
+                    <button type="button" disabled>Leave</button>
+                </div>
+            </td>
         </tr>
-        @*@Html.DisplayFor(modelItem => activity.Activity.Name)
-        @Html.DisplayFor(modelItem => activity.Activity.Description)
-        @Html.DisplayFor(modelItem => activity.Activity.Area)
-        @Html.DisplayFor(modelItem => activity.Activity.CostPerUser)
-        @Html.DisplayFor(modelItem => activity.Activity.TimeStart)
-        @Html.DisplayFor(modelItem => activity.Activity.TimeEnd)
-        @Html.DropDownList("Joined", activity.Invitees, htmlAttributes: new { @class = "form-control" })
-        <button id="button" onclick="location.href='@Url.Action("JoinActivities", "Meetup", new { id = activity.Activity.Id })'">Join</button>*@
-            
-            @*<button id="button" onclick="location.href='@Url.Action("JoinActivities", "Meetup", new { id = activity.Activity.Id })'">Join</button>*@
         }
     </table>
 }
 else
 {
-    foreach (var activity in Model.Activities_Invitees)
+    <table class="table" width="80%">
+        <tr>
+            <th>Activity</th>
+            <th>Description</th>
+            <th>Distance</th>
+            <th>Cost/person</th>
+            <th>Time Start</th>
+            <th>Time End</th>
+            <th>Participants</th>
+        </tr>
+        @foreach (var activity in Model.Activities_Invitees)
+        {
+            <tr>
+                <td>
+                    <div>
+                        <p>@activity.Activity.Name</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.Activity.Description</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.Distance</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>$@activity.Activity.CostPerUser</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.timeStart</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.timeEnd</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.DropDownList("Joined", activity.Invitees, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <button type="button" disabled>Join</button>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <button id="button" onclick="location.href='@Url.Action("LeaveActivity", new { id = activity.Activity.Id })';return false;">Leave</button>
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+    @*foreach (var activity in Model.Activities_Invitees)
     {
         @Html.DisplayFor(modelItem => activity.Activity.Name)
         @Html.DisplayFor(modelItem => activity.Activity.Description)
@@ -106,12 +162,11 @@ else
         @Html.DisplayFor(modelItem => activity.Activity.TimeStart)
         @Html.DisplayFor(modelItem => activity.Activity.TimeEnd)
         @Html.DropDownList("Joined", activity.Invitees, htmlAttributes: new { @class = "form-control" })
-        <button type="button" disabled>Join</button>
         if (activity.Activity.Id == Model.ActivityJoined)
         {
         <button id ="button" onclick="location.href='@Url.Action("LeaveActivity", new { id = activity.Activity.Id })';return false;">Leave</button>
         }
 
-    }
+    }*@
 }
 

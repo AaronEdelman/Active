@@ -56,7 +56,8 @@ namespace Active
             }
             if (miles == 0)
             {
-                distance = feet.ToString() + " feet";
+                int feetRound = (int)Math.Round(feet, 0);
+                distance = feetRound.ToString() + " feet";
             }
             return distance;
         }
