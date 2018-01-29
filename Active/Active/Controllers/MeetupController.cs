@@ -261,5 +261,14 @@ namespace Active.Controllers
             db.SaveChanges();
             return RedirectToAction("MyInteractions");
         }
+        
+        public ActionResult Rate_Email(int Id, string RateeId, string RateeEmail, string RateeName, string ActivityName, DateTime ActivityDate )
+        {
+            var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            ApplicationUser sender = db.Users.Find(UserId);
+
+            Mailgun.SendSimpleMessage(RateeEmail, RateeName, sender.FirstName, sender.LastName, ActivityName, ActivityDate.ToShortDateString(), sender.Email);
+            return RedirectToAction("Rate", new { Id = 5, RateeId});
+        }
     }
 }

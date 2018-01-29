@@ -25,11 +25,11 @@
                     <p>@interaction.Activity.TimeStart</p>
                 </div>
             </td>
-            <td>
+            @*<td>
                 <div>
                     <p>@interaction.User.Id</p>
                 </div>
-            </td>
+            </td>*@
             <td>
                 <div>
                     <button id="button1" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 0 , RateeId = interaction.User.Id})'">No Show</button>
@@ -37,15 +37,45 @@
                     <button id="button3" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 2 , RateeId = interaction.User.Id})'">Not Great</button>
                     <button id="button4" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 3 , RateeId = interaction.User.Id})'">So-so</button>
                     <button id="button5" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 4 , RateeId = interaction.User.Id})'">Good</button>
-                    <button id="button6" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 5 , RateeId = interaction.User.Id}) '">Awesome</button>                
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Great</a>
+                    <div class="modal fade" id="myModal">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <a href="#" class="close" data-dissmiss="modal">&times;</a>
+                                    <h3 class="modal-title">Email @interaction.User.FirstName</h3>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Looks like you and @interaction.User.FirstName had a good time!</p>
+                                    <p>Would you like to send them your email for future hang-outs?</p>
+                                    <button id="button6" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 5 , RateeId = interaction.User.Id}) '">No</button>thanks, just the rating today.
+                                    <button id="button6" onclick="location.href='@Url.Action("Rate_Email", "Meetup", new { id = 5 , RateeId = interaction.User.Id, RateeEmail = interaction.User.Email, RateeName = interaction.User.FirstName, ActivityName = interaction.Activity.Name, ActivityDate = interaction.Activity.TimeStart}) '">Yes</button>send them my full name and Email.
+
+                                    @*@using (Html.BeginForm("Rate_Email", "Meetup", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                    {
+                                            <div class="form-group">
+                                                @Html.HiddenFor(m => interaction.Activity.Name)
+                                                @Html.HiddenFor(m => interaction.Activity.TimeStart)
+                                                @Html.HiddenFor(m => interaction.User.FirstName)
+                                                @Html.HiddenFor(m => interaction.User.Email)
+                                                @Html.HiddenFor(m => interaction.User.Id)
+                                            </div>
+                                            <div class="form-group">
+                                                    <input type="Submit" value="Yes"/> send them my full name and Email.
+                                            </div>
+                                    }*@
+
+                                        </div>
+                                <div class="modal-footer">
+                                    @*<a href="#" class="btn btn-default" data-dissmiss="modal">Cancel</a>
+                        <input type="reset" value="Submit" class="btn btn-success" id="btnSubmit">Submit</a>*@
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<button id="button6" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 5 , RateeId = interaction.User.Id}) '">No thanks</button>*@                
                 </div>
             </td>
-        @*<button id="button1" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 0 , RateeId = interaction.User.Id})'">No Show</button>
-        <button id="button2" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 1 , RateeId = interaction.User.Id})'">Garbage Person</button>
-        <button id="button3" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 2 , RateeId = interaction.User.Id})'">Not Great</button>
-        <button id="button4" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 3 , RateeId = interaction.User.Id})'">So-so</button>
-        <button id="button5" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 4 , RateeId = interaction.User.Id})'">Good</button>
-        <button id="button6" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 5 , RateeId = interaction.User.Id}) '">Awesome</button>*@
         </tr>
     }
 </table>

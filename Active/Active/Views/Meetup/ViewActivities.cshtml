@@ -78,12 +78,12 @@
             </td>
             <td>
                 <div>
-                    <button id="button" onclick="location.href='@Url.Action("JoinActivities", "Meetup", new { id = activity.Activity.Id })'">Join</button>
+                    <button id="activeButton" onclick="location.href='@Url.Action("JoinActivities", "Meetup", new { id = activity.Activity.Id })'">Join</button>
                 </div>
             </td>
             <td>
                 <div>
-                    <button type="button" disabled>Leave</button>
+                    <button type="button" id="disabledButton"  disabled>Leave</button>
                 </div>
             </td>
         </tr>
@@ -142,31 +142,21 @@ else
                 </td>
                 <td>
                     <div>
-                        <button type="button" disabled>Join</button>
+                        <button type= "button" id ="disabledButton" color= disabled>Join</button>
                     </div>
                 </td>
                 <td>
                     <div>
-                        <button id="button" onclick="location.href='@Url.Action("LeaveActivity", new { id = activity.Activity.Id })';return false;">Leave</button>
+                        <button id="activeButton" onclick="location.href='@Url.Action("LeaveActivity", new { id = activity.Activity.Id })';return false;">Leave</button>
                     </div>
                 </td>
             </tr>
         }
     </table>
-    @*foreach (var activity in Model.Activities_Invitees)
-    {
-        @Html.DisplayFor(modelItem => activity.Activity.Name)
-        @Html.DisplayFor(modelItem => activity.Activity.Description)
-        @Html.DisplayFor(modelItem => activity.Activity.Area)
-        @Html.DisplayFor(modelItem => activity.Activity.CostPerUser)
-        @Html.DisplayFor(modelItem => activity.Activity.TimeStart)
-        @Html.DisplayFor(modelItem => activity.Activity.TimeEnd)
-        @Html.DropDownList("Joined", activity.Invitees, htmlAttributes: new { @class = "form-control" })
-        if (activity.Activity.Id == Model.ActivityJoined)
-        {
-        <button id ="button" onclick="location.href='@Url.Action("LeaveActivity", new { id = activity.Activity.Id })';return false;">Leave</button>
-        }
-
-    }*@
 }
+<style>
+    #disabledButton{
+        opacity: .6;
+    }
+</style>
 

@@ -28,6 +28,20 @@ namespace Active
                 Id = UrlParameter.Optional,
                 RateeId = UrlParameter.Optional
             });
+            routes.MapRoute(
+            "Rate_Email",
+            "Meetup/Rate_Email/{Id}/{RateeId}/{rateeEmail}/{rateeName}/{activityName}/{activityDate}",
+            new
+            {
+                controller = "Meetup",
+                action = "Rate_Email",
+                Id = UrlParameter.Optional,
+                RateeId = UrlParameter.Optional,
+                RateeEmail = UrlParameter.Optional,
+                RateeName = UrlParameter.Optional,
+                ActivityName = UrlParameter.Optional,
+                ActivityDate = UrlParameter.Optional,
+            });
         }
     }
 }
