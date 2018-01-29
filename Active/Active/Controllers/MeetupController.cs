@@ -120,7 +120,16 @@ namespace Active.Controllers
         [HttpGet]
         public ActionResult ViewActivities(UserToActivityModel model)
         {
-        var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            //inactivate activities past their expiration times
+            foreach (var row in db.Activity.Where(n => n.Active == true))
+            {
+                if (DateTime.Now >= row.TimeEnd)
+                {
+                    row.Active = false;
+                }
+            }
+            db.SaveChanges();
+            var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
             // create available activities
             MainPageViewModel main = new MainPageViewModel();
@@ -255,7 +264,7 @@ namespace Active.Controllers
             rating.UserId = RateeId;
             rating.ReviewerId = UserId;
             db.Rating.Add(rating);
-            ApplicationUser user = db.Users.Find(UserId);
+            ApplicationUser user = db.Users.Find(RateeId);
             user.Rating += Id;
             user.RatingCount += 1;
             db.SaveChanges();

@@ -22,7 +22,7 @@ namespace Active
             request.AddParameter("from", "InterActive Team <mailgun@sandbox1205fb1736974a9f9dd1a66a41870ea1.mailgun.org>");
             request.AddParameter("to", receiverEmail);
             request.AddParameter("subject", "InterActive Message");
-            request.AddParameter("text", "Hi "+receiverName+", you recently met up with "+senderFirstName+" "+senderLastName+" at "+activity+" on "+date+". Here is their Email in case you want to hang out again: "+ senderEmail);
+            request.AddParameter("text", "Hi "+receiverName+", you recently met up with "+senderFirstName+" "+senderLastName+" at "+activity+" on "+date+". They Decided to pass along their Email in case you want to hang out again: "+ senderEmail);
             request.Method = Method.POST;
             return client.Execute(request);
         }
