@@ -120,6 +120,14 @@ namespace Active.Controllers
         [HttpGet]
         public ActionResult ViewActivities(UserToActivityModel model)
         {
+            //inactivate checkins over an hour old
+            foreach (var row in db.Checkin.Where(n => n.Active == true))
+            {
+                if (DateTime.Now.AddHours(1) <= row.CheckinTime)
+                {
+                    row.Active = false;
+                }
+            }
             //inactivate activities past their expiration times
             foreach (var row in db.Activity.Where(n => n.Active == true))
             {
@@ -131,10 +139,22 @@ namespace Active.Controllers
             db.SaveChanges();
             var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
-            // create available activities
             MainPageViewModel main = new MainPageViewModel();
             main.ActivityJoined = model.Id;
             main.UserId = UserId;
+            // find out if user is checked in
+            foreach (var checkin in db.Checkin.Where(n=>n.Active))
+            {
+                if(checkin.UserId == UserId)
+                {
+                    main.CheckedIn = true;
+                }
+                else
+                {
+                    main.CheckedIn = false;
+                }
+            }
+            // create available activities
             main.Activities_Invitees = new List<Activity_InviteesViewModel>();
             main.UserToActivity = new List<UserToActivityModel>();
             foreach(var row in db.UserToActivity.Where(n => n.UserId == UserId))
@@ -299,5 +319,19 @@ namespace Active.Controllers
             db.SaveChanges();
             return RedirectToAction("ViewActivities");
         }
+        public ActionResult DeleteActivity(int id)
+        {
+            //remove activity from db.Activity
+            ActivityModel activity = db.Activity.Find(id);
+            db.Activity.Remove(activity);
+            //remove instances of activity from db.UsersToActivity
+            foreach (var row in db.UserToActivity.Where(n=>n.ActivityId == id))
+            {
+                db.UserToActivity.Remove(row);
+            }
+            db.SaveChanges();
+            return RedirectToAction("ViewActivities");
+        }
+
     }
 }

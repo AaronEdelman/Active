@@ -1,6 +1,11 @@
 ﻿@model Active.Models.MainPageViewModel
 
-
+@if (Model.CheckedIn == false)
+{
+    <br />
+    <br />
+    <h4 id="Checkedin">Your checkin is over an hour old.  Check in again if your location has changed.</h4>
+}
 @if (Model.Activities_Invitees.Count == 0)
 {
     <h2>My Created Activity</h2>
@@ -375,6 +380,10 @@ else
 <style>
     #disabledButton{
         opacity: .6;
+    }
+    #Checkedin{
+        text-align:center;
+        color:red;
     }
 </style>
 @*<style>

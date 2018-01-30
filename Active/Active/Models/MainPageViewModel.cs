@@ -13,6 +13,6 @@ namespace Active.Models
         public List<UserToActivityModel> UserToActivity { get; set; }
         public int ActivityJoined { get; set; }
         public string UserId { get; set; }
-        
+        public bool CheckedIn { get; set; }
     }
 }
