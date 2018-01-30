@@ -279,5 +279,25 @@ namespace Active.Controllers
             Mailgun.SendSimpleMessage(RateeEmail, RateeName, sender.FirstName, sender.LastName, ActivityName, ActivityDate.ToShortDateString(), sender.Email);
             return RedirectToAction("Rate", new { Id = 5, RateeId});
         }
+        
+        [HttpGet]
+        public ActionResult EditActivity(int id)
+        {
+            ActivityModel activity = db.Activity.Find(id);
+            return View(activity);
+        }
+        [HttpPost]
+        public ActionResult EditActivity(ActivityModel model)
+        {
+            ActivityModel activity = db.Activity.Find(model.Id);
+            activity.Name = model.Name;
+            activity.Invitees = model.Invitees;
+            activity.TimeStart = DateTime.Now;
+            activity.TimeEnd = DateTime.Now.AddMinutes(model.ActivityLength);
+            activity.CostPerUser = model.CostPerUser;
+            activity.Area = DistanceFinder.ConvertInviteeArea(model.Area);
+            db.SaveChanges();
+            return RedirectToAction("ViewActivities");
+        }
     }
 }

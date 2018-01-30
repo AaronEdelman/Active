@@ -1,33 +1,67 @@
 ﻿@model Active.Models.MainPageViewModel
 
 
-<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Create Activity</a>
-
-@*<style>
-        .modal{
-            background-color: forestgreen;
-        }
-    </style>*@
-<div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <a href="#" class="close" data-dissmiss="modal">&times;</a>
-                <h3 class="modal-title">Activity</h3>
-            </div>
-            <div class="modal-body">
-                @Html.Partial("_CreateActivity", new Active.Models.ActivityModel())
-            </div>
-            <div class="modal-footer">
-                @*<a href="#" class="btn btn-default" data-dissmiss="modal">Cancel</a>
-                    <input type="reset" value="Submit" class="btn btn-success" id="btnSubmit">Submit</a>*@
+@if (Model.Activities_Invitees.Count == 0)
+{
+    <h2>My Created Activity</h2>
+    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right;">Create Activity</a>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dissmiss="modal">&times;</a>
+                    <h3 class="modal-title">Activity</h3>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("_CreateActivity", new Active.Models.ActivityModel())
+                </div>
+                <div class="modal-footer">
+                    @*<a href="#" class="btn btn-default" data-dissmiss="modal">Cancel</a>
+                        <input type="reset" value="Submit" class="btn btn-success" id="btnSubmit">Submit</a>*@
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-@if (Model.ActivityJoined == 0)
+    <table class="table" width="90%">
+        <tr>
+            <th>Activity</th>
+            <th>Description</th>
+            <th>Distance</th>
+            <th>Cost/person</th>
+            <th>Time Start</th>
+            <th>Time End</th>
+            <th>Participants</th>
+        </tr>
+    </table>
+    <br />
+    <br />
+    <br />
+    <br />
+    <p>Doesn't Look like anyone has created an activity in your area.   Click "Create Activity" and get something started!</p>
+}
+else if (Model.ActivityJoined == 0)
 {
+    <h2>My Created Activity</h2>
+    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right;">Create Activity</a>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dissmiss="modal">&times;</a>
+                    <h3 class="modal-title">Activity</h3>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("_CreateActivity", new Active.Models.ActivityModel())
+                </div>
+                <div class="modal-footer">
+                    @*<a href="#" class="btn btn-default" data-dissmiss="modal">Cancel</a>
+                        <input type="reset" value="Submit" class="btn btn-success" id="btnSubmit">Submit</a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
     <table class="table" width="80%">
         <tr>
             <th>Activity</th>
@@ -38,7 +72,79 @@
             <th>Time End</th>
             <th>Participants</th>
         </tr>
-        @foreach (var activity in Model.Activities_Invitees)
+        @foreach (var activity in Model.Activities_Invitees.Where(n => n.Activity.CreatorId == Model.UserId))
+        {
+            <tr>
+                <td>
+                    <div>
+                        <p>@activity.Activity.Name</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.Activity.Description</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.Distance</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>$@activity.Activity.CostPerUser</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.timeStart</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.timeEnd</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.DropDownList("Joined", activity.Invitees, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <button id="activeButton" onclick="location.href='@Url.Action("JoinActivities", "Meetup", new { id = activity.Activity.Id })'">Join</button>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <button type="button" id="disabledButton" disabled>Leave</button>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.ActionLink("Edit Activity", "EditActivity", new { id = activity.Activity.Id })<br />
+                        @Html.ActionLink("Delete Activity", "DeleteActivity", new { id = activity.Activity.Id })
+                    </div>
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+    <br />
+    <br />
+    <br />
+    <h2>Activities Near  Me</h2>
+    <table class="table" width="80%">
+        <tr>
+            <th>Activity</th>
+            <th>Description</th>
+            <th>Distance</th>
+            <th>Cost/person</th>
+            <th>Time Start</th>
+            <th>Time End</th>
+            <th>Participants</th>
+        </tr>
+        @foreach (var activity in Model.Activities_Invitees.Where(n => n.Activity.CreatorId != Model.UserId))
         {
         <tr>
             <td>
@@ -92,6 +198,107 @@
 }
 else
 {
+    <h2>My Created Activity</h2>
+    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right;">Create Activity</a>
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dissmiss="modal">&times;</a>
+                    <h3 class="modal-title">Activity</h3>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("_CreateActivity", new Active.Models.ActivityModel())
+                </div>
+                <div class="modal-footer">
+                    @*<a href="#" class="btn btn-default" data-dissmiss="modal">Cancel</a>
+                        <input type="reset" value="Submit" class="btn btn-success" id="btnSubmit">Submit</a>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table" width="90%">
+        <tr>
+            <th>Activity</th>
+            <th>Description</th>
+            <th>Distance</th>
+            <th>Cost/person</th>
+            <th>Time Start</th>
+            <th>Time End</th>
+            <th>Participants</th>
+        </tr>
+        @foreach (var activity in Model.Activities_Invitees.Where(n => n.Activity.CreatorId == Model.UserId))
+        {
+            <tr>
+                <td>
+                    <div>
+                        <p>@activity.Activity.Name</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.Activity.Description</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.Distance</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>$@activity.Activity.CostPerUser</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.timeStart</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.timeEnd</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.DropDownList("Joined", activity.Invitees, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <button type="button" id="disabledButton" color= disabled>Join</button>
+                    </div>
+                </td>
+                @if (activity.Activity.Id == Model.ActivityJoined)
+                {
+                    <td>
+                        <div>
+                            <button id="activeButton" onclick="location.href='@Url.Action("LeaveActivity", new { id = activity.Activity.Id })';return false;">Leave</button>
+                        </div>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <div>
+                            <button type="button" id="disabledButton" color= disabled>Leave</button>
+                        </div>
+                    </td>
+                }                
+                <td>
+                        @Html.ActionLink("Edit Activity", "EditActivity", new { id = activity.Activity.Id })<br />
+                        @Html.ActionLink("Delete Activity", "DeleteActivity", new { id = activity.Activity.Id })
+                </td>
+            </tr>
+        }
+    </table>
+    <br />
+    <br />
+    <br />
+    <br />
+    <h2>Activities Near  Me</h2>
     <table class="table" width="80%">
         <tr>
             <th>Activity</th>
@@ -102,7 +309,7 @@ else
             <th>Time End</th>
             <th>Participants</th>
         </tr>
-        @foreach (var activity in Model.Activities_Invitees)
+        @foreach (var activity in Model.Activities_Invitees.Where(n => n.Activity.CreatorId != Model.UserId))
         {
             <tr>
                 <td>
@@ -145,11 +352,22 @@ else
                         <button type= "button" id ="disabledButton" color= disabled>Join</button>
                     </div>
                 </td>
+                @if (activity.Activity.Id == Model.ActivityJoined)
+                {
                 <td>
                     <div>
                         <button id="activeButton" onclick="location.href='@Url.Action("LeaveActivity", new { id = activity.Activity.Id })';return false;">Leave</button>
                     </div>
                 </td>
+                }
+                else
+                {
+                    <td>
+                        <div>
+                            <button type="button" id="disabledButton" color= disabled>Leave</button>
+                        </div>
+                    </td>
+                }
             </tr>
         }
     </table>
@@ -159,4 +377,9 @@ else
         opacity: .6;
     }
 </style>
+@*<style>
+        #myModal{
+            text-align:"right"
+        }
+</style>*@
 

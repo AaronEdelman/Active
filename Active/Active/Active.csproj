@@ -321,6 +321,7 @@
     <Content Include="Views\Meetup\_CreateActivity.cshtml" />
     <Content Include="Views\Meetup\ViewActivities.cshtml" />
     <Content Include="Views\Meetup\MyInteractions.cshtml" />
+    <Content Include="Views\Meetup\EditActivity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

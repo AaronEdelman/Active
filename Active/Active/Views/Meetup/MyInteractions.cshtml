@@ -25,11 +25,6 @@
                     <p>@Model.Interactions[i].Activity.TimeStart</p>
                 </div>
             </td>
-            @*<td>
-                <div>
-                    <p>@interaction.User.Id</p>
-                </div>
-            </td>*@
             <td>
                 <div>
                     <button id="button1" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 0 , RateeId = @Model.Interactions[i].User.Id})'">No Show</button>
@@ -58,7 +53,6 @@
                             </div>
                         </div>
                     </div>
-                    @*<button id="button6" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 5 , RateeId = interaction.User.Id}) '">No thanks</button>*@                
                 </div>
             </td>
         </tr>
