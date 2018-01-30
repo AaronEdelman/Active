@@ -16,7 +16,7 @@ namespace Active
             double latLong = area/2.75518F*.00001D;
             return latLong;
         }
-
+        //pythagreoum theroum
         public static double FindActivitiesDistance(double latitudeUser, double longitudeUser, double latitudeActivity, double longitudeActivity)
         {
             double diffLat = (latitudeUser - latitudeActivity) * (latitudeUser - latitudeActivity);

@@ -243,6 +243,7 @@
     <Compile Include="Models\Activity_InviteesViewModel.cs" />
     <Compile Include="Models\ActivityModel.cs" />
     <Compile Include="Models\CheckinModel.cs" />
+    <Compile Include="Models\DirectionsViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InteractionViewModel.cs" />
     <Compile Include="Models\MainPageViewModel.cs" />
@@ -322,6 +323,7 @@
     <Content Include="Views\Meetup\ViewActivities.cshtml" />
     <Content Include="Views\Meetup\MyInteractions.cshtml" />
     <Content Include="Views\Meetup\EditActivity.cshtml" />
+    <Content Include="Views\Meetup\ViewDirections.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

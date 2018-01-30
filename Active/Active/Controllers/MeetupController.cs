@@ -27,7 +27,7 @@ namespace Active.Controllers
             //inactivate checkins over an hour old
             foreach (var row in db.Checkin.Where(n => n.Active == true))
             {
-                if(DateTime.Now.AddHours(1) <= row.CheckinTime)
+                if (DateTime.Now.AddHours(1) <= row.CheckinTime)
                 {
                     row.Active = false;
                 }
@@ -143,9 +143,9 @@ namespace Active.Controllers
             main.ActivityJoined = model.Id;
             main.UserId = UserId;
             // find out if user is checked in
-            foreach (var checkin in db.Checkin.Where(n=>n.Active))
+            foreach (var checkin in db.Checkin.Where(n => n.Active))
             {
-                if(checkin.UserId == UserId)
+                if (checkin.UserId == UserId)
                 {
                     main.CheckedIn = true;
                 }
@@ -157,7 +157,7 @@ namespace Active.Controllers
             // create available activities
             main.Activities_Invitees = new List<Activity_InviteesViewModel>();
             main.UserToActivity = new List<UserToActivityModel>();
-            foreach(var row in db.UserToActivity.Where(n => n.UserId == UserId))
+            foreach (var row in db.UserToActivity.Where(n => n.UserId == UserId))
             {
                 main.UserToActivity.Add(row);
             }
@@ -184,7 +184,7 @@ namespace Active.Controllers
                         activity_Invitees.timeEnd = activity_Invitees.Activity.TimeEnd.ToShortTimeString();
                         //find users that joined that same activity.
                         List<string> invitees = new List<string>();
-                        
+
                         foreach (var invitee in db.UserToActivity.Include(n => n.User))
                         {
                             if (invitee.ActivityId == activity.Id && invitee.UserId != null)
@@ -194,13 +194,13 @@ namespace Active.Controllers
                                 invitees.Add(listInvitee);
                             }
                         }
-                        
+
                         activity_Invitees.Invitees = new SelectList(invitees);
-                        
+
                         main.Activities_Invitees.Add(activity_Invitees);
                         ViewData["Joined"] = new SelectList(invitees);
                         foreach (var row in main.UserToActivity)
-                        { 
+                        {
                             if (row.ActivityId == activity.Id)
                             {
                                 main.ActivityJoined = row.ActivityId;
@@ -212,7 +212,7 @@ namespace Active.Controllers
             catch { }
             return View(main);
         }
-        
+
         [HttpGet]
         public ActionResult JoinActivities(int id)
         {
@@ -222,7 +222,7 @@ namespace Active.Controllers
             db.SaveChanges();
             return RedirectToAction("ViewActivities", new { id });
         }
-        
+
         public ActionResult LeaveActivity(int id)
         {
             var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
@@ -247,7 +247,7 @@ namespace Active.Controllers
             }
             RatingsViewModel ratings = new RatingsViewModel();
             ratings.Ratings = new List<RatingModel>();
-            foreach(var rating in db.Rating)
+            foreach (var rating in db.Rating)
             {
                 ratings.Ratings.Add(rating);
             }
@@ -265,7 +265,7 @@ namespace Active.Controllers
                     {
                         myInteractions.Interactions.Add(interaction);
                     }
-                    foreach(var rating in ratings.Ratings.Where(n => n.UserId == person.UserId))
+                    foreach (var rating in ratings.Ratings.Where(n => n.UserId == person.UserId))
                     {
                         if (rating.ReviewerId == UserId)
                         {
@@ -290,16 +290,16 @@ namespace Active.Controllers
             db.SaveChanges();
             return RedirectToAction("MyInteractions");
         }
-        
-        public ActionResult Rate_Email(int Id, string RateeId, string RateeEmail, string RateeName, string ActivityName, DateTime ActivityDate )
+
+        public ActionResult Rate_Email(int Id, string RateeId, string RateeEmail, string RateeName, string ActivityName, DateTime ActivityDate)
         {
             var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             ApplicationUser sender = db.Users.Find(UserId);
 
             Mailgun.SendSimpleMessage(RateeEmail, RateeName, sender.FirstName, sender.LastName, ActivityName, ActivityDate.ToShortDateString(), sender.Email);
-            return RedirectToAction("Rate", new { Id = 5, RateeId});
+            return RedirectToAction("Rate", new { Id = 5, RateeId });
         }
-        
+
         [HttpGet]
         public ActionResult EditActivity(int id)
         {
@@ -325,12 +325,27 @@ namespace Active.Controllers
             ActivityModel activity = db.Activity.Find(id);
             db.Activity.Remove(activity);
             //remove instances of activity from db.UsersToActivity
-            foreach (var row in db.UserToActivity.Where(n=>n.ActivityId == id))
+            foreach (var row in db.UserToActivity.Where(n => n.ActivityId == id))
             {
                 db.UserToActivity.Remove(row);
             }
             db.SaveChanges();
             return RedirectToAction("ViewActivities");
+        }
+
+        [HttpGet]
+        public ActionResult ViewDirections(int id)
+        {
+            var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            DirectionsViewModel directions = new DirectionsViewModel();
+            ActivityModel activity = db.Activity.Find(id);
+            directions.Checkin = new CheckinModel();
+            directions.Activity = activity;
+            double userLatitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Latitude).First();
+            double userLongitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Longitude).First();
+            directions.Checkin.Latitude = userLatitude;
+            directions.Checkin.Longitude = userLongitude;
+            return View(directions);
         }
 
     }

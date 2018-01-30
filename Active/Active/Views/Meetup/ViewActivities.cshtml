@@ -128,7 +128,8 @@ else if (Model.ActivityJoined == 0)
                 <td>
                     <div>
                         @Html.ActionLink("Edit Activity", "EditActivity", new { id = activity.Activity.Id })<br />
-                        @Html.ActionLink("Delete Activity", "DeleteActivity", new { id = activity.Activity.Id })
+                        @Html.ActionLink("Delete Activity", "DeleteActivity", new { id = activity.Activity.Id })<br />
+                        @Html.ActionLink("Directions", "ViewDirections", new { id = activity.Activity.Id })
                     </div>
                 </td>
             </tr>
@@ -195,6 +196,11 @@ else if (Model.ActivityJoined == 0)
             <td>
                 <div>
                     <button type="button" id="disabledButton"  disabled>Leave</button>
+                </div>
+            </td>
+            <td>
+                <div>
+                    @Html.ActionLink("Directions", "ViewDirections", new { id = activity.Activity.Id })
                 </div>
             </td>
         </tr>
@@ -293,8 +299,9 @@ else
                     </td>
                 }                
                 <td>
-                        @Html.ActionLink("Edit Activity", "EditActivity", new { id = activity.Activity.Id })<br />
-                        @Html.ActionLink("Delete Activity", "DeleteActivity", new { id = activity.Activity.Id })
+                    @Html.ActionLink("Edit Activity", "EditActivity", new { id = activity.Activity.Id })<br />
+                    @Html.ActionLink("Delete Activity", "DeleteActivity", new { id = activity.Activity.Id })<br />
+                    @Html.ActionLink("Directions", "ViewDirections", new { id = activity.Activity.Id })
                 </td>
             </tr>
         }
@@ -373,6 +380,11 @@ else
                         </div>
                     </td>
                 }
+                <td>
+                    <div>
+                        @Html.ActionLink("Directions", "ViewDirections", new { id = activity.Activity.Id })<br />
+                    </div>
+                </td>
             </tr>
         }
     </table>
