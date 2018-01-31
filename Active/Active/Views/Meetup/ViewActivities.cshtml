@@ -152,58 +152,69 @@ else if (Model.ActivityJoined == 0)
         </tr>
         @foreach (var activity in Model.Activities_Invitees.Where(n => n.Activity.CreatorId != Model.UserId))
         {
-        <tr>
-            <td>
-                <div>
-                    <p>@activity.Activity.Name</p>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <p>@activity.Activity.Description</p>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <p>@activity.Distance</p>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <p>$@activity.Activity.CostPerUser</p>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <p>@activity.timeStart</p>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <p>@activity.timeEnd</p>
-                </div>
-            </td>
-            <td>
-                <div>
-                    @Html.DropDownList("Joined", activity.Invitees, htmlAttributes: new { @class = "form-control" })
-                </div>
-            </td>
-            <td>
-                <div>
-                    <button id="activeButton" onclick="location.href='@Url.Action("JoinActivities", "Meetup", new { id = activity.Activity.Id })'">Join</button>
-                </div>
-            </td>
-            <td>
-                <div>
-                    <button type="button" id="disabledButton"  disabled>Leave</button>
-                </div>
-            </td>
-            <td>
-                <div>
-                    @Html.ActionLink("Directions", "ViewDirections", new { id = activity.Activity.Id })
-                </div>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    <div>
+                        <p>@activity.Activity.Name</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.Activity.Description</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.Distance</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>$@activity.Activity.CostPerUser</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.timeStart</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        <p>@activity.timeEnd</p>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.DropDownList("Joined", activity.Invitees, htmlAttributes: new { @class = "form-control" })
+                    </div>
+                </td>
+                @if (activity.Invitees.Count() == activity.Activity.Invitees)
+                {
+                    <td>
+                        <div>
+                            <button type="button" id="disabledButton" disabled>Full</button>
+                        </div>
+                    </td>
+                }
+                else
+                {
+                <td>
+                    <div>
+                        <button id="activeButton" onclick="location.href='@Url.Action("JoinActivities", "Meetup", new { id = activity.Activity.Id })'">Join</button>
+                    </div>
+                </td>
+                }
+                <td>
+                    <div>
+                        <button type="button" id="disabledButton" disabled>Leave</button>
+                    </div>
+                </td>
+                <td>
+                    <div>
+                        @Html.ActionLink("Directions", "ViewDirections", new { id = activity.Activity.Id })
+                     </div>
+                </td>
+            </tr>
         }
     </table>
 }
@@ -359,30 +370,44 @@ else
                         @Html.DropDownList("Joined", activity.Invitees, htmlAttributes: new { @class = "form-control" })
                     </div>
                 </td>
-                <td>
-                    <div>
-                        <button type= "button" id ="disabledButton" color= disabled>Join</button>
-                    </div>
-                </td>
-                @if (activity.Activity.Id == Model.ActivityJoined)
-                {
-                <td>
-                    <div>
-                        <button id="activeButton" onclick="location.href='@Url.Action("LeaveActivity", new { id = activity.Activity.Id })';return false;">Leave</button>
-                    </div>
-                </td>
-                }
-                else
-                {
+                
                     <td>
                         <div>
-                            <button type="button" id="disabledButton" color= disabled>Leave</button>
+                            <button type= "button" id ="disabledButton" color= disabled>Join</button>
                         </div>
                     </td>
-                }
+                    @if (activity.Activity.Id == Model.ActivityJoined )
+                    {
+                    <td>
+                        <div>
+                            <button id="activeButton" onclick="location.href='@Url.Action("LeaveActivity", new { id = activity.Activity.Id })';return false;">Leave</button>
+                        </div>
+                    </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <div>
+                                <button type="button" id="disabledButton" color= disabled>Leave</button>
+                            </div>
+                        </td>
+                    }
+                
                 <td>
                     <div>
                         @Html.ActionLink("Directions", "ViewDirections", new { id = activity.Activity.Id })<br />
+                        @if (activity.Activity.CostPerUser > 0 && activity.Activity.Id == Model.ActivityJoined)
+                        {
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                    data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
+                                    data-amount=@activity.Activity.CostPerUser
+                                    data-name="Stripe.com"
+                                    data-description="Widget"
+                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                    data-locale="auto"
+                                    data-zip-code="true">
+                            </script>
+                        }
                     </div>
                 </td>
             </tr>

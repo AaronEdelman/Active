@@ -87,6 +87,7 @@ namespace Active.Controllers
             {
                 newActivity.CostPerUser = 0;
             }
+            newActivity.Invitees = model.Invitees;
             newActivity.CreatorId = UserId;
             newActivity.Description = model.Description;
             newActivity.TimeStart = DateTime.Now;
@@ -95,6 +96,7 @@ namespace Active.Controllers
             newActivity.Active = true;
             newActivity.Latitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Latitude).First();
             newActivity.Longitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Longitude).First();
+            //User can only have one created activity at a time
             try
             {
                 foreach (var row in db.Activity)
@@ -105,11 +107,12 @@ namespace Active.Controllers
             }
             catch
             { }
-            //create null entries UserToActivity for each invitee
+            //create null entries in db.UserToActivity for each invitee
             for (int i = 0; i < model.Invitees; i++)
             {
                 UserToActivityModel userToActivity = new UserToActivityModel();
                 userToActivity.ActivityId = model.Id;
+                userToActivity.UserId = null;
                 db.UserToActivity.Add(userToActivity);
             }
             db.Activity.Add(newActivity);

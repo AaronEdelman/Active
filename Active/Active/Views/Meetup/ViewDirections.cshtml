@@ -13,8 +13,13 @@
         /* Always set the map height explicitly to define the size of the div
         * element that contains the map. */
         #map {
+
             height: 400px;
             width: 400px;
+            display: inline-block;
+        }
+        #directionsPanel{
+            display:inline-block;
         }
         /* Optional: Makes the sample page fill the window. */
         html, body {
@@ -25,9 +30,17 @@
     </style>
 </head>
 <body>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
 
-    <div id="map"></div>
-    <div id="directionsPanel" style="float:right;width:200px;height:400px;top:600px"></div>
+    <div id="map" ></div>
+    <div id="directionsPanel" style="float:right;width:400px;height:400px;"></div>
     <script>
         function initMap() {
         var directionsService = new google.maps.DirectionsService;
