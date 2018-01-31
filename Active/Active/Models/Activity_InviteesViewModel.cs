@@ -13,6 +13,5 @@ namespace Active.Models
         public string Distance { get; set; }
         public string timeStart { get; set; }
         public string timeEnd { get; set; }
-        public string Message { get; set; }
     }
 }

@@ -143,6 +143,7 @@ namespace Active.Controllers
             var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
 
             MainPageViewModel main = new MainPageViewModel();
+            main.Messages = new List<string>();
             main.ActivityJoined = model.Id;
             main.UserId = UserId;
             // find out if user is checked in
@@ -192,9 +193,17 @@ namespace Active.Controllers
                         {
                             if (invitee.ActivityId == activity.Id && invitee.UserId != null)
                             {
-                                Joiner joiner = new Joiner(invitee.User.FirstName, invitee.User.Rating, invitee.User.RatingCount);
+                                //Ratings
+                                Joiner joiner = new Joiner(invitee.User.FirstName, invitee.User.Rating, invitee.User.RatingCount, invitee.Message);
                                 string listInvitee = joiner.CreateRatingString();
                                 invitees.Add(listInvitee);
+
+                                //Messages
+                                if (invitee.Message != null)
+                                {
+                                    string message = joiner.CreateMessageString();
+                                    main.Messages.Add(message);
+                                }
                             }
                         }
 

@@ -10,12 +10,14 @@ namespace Active
         public string name;
         public float ratingTotal;
         public float ratingCount;
+        public string message;
 
-        public Joiner (string name, int ratingTotal, int ratingCount)
+        public Joiner (string name, int ratingTotal, int ratingCount, string message)
         {
             this.name = name;
             this.ratingTotal = ratingTotal;
             this.ratingCount = ratingCount;
+            this.message = message;
         }
 
         public string CreateRatingString()
@@ -35,6 +37,12 @@ namespace Active
         {
             string count = " ("+ratingCount.ToString()+" ratings)";
             return count;
+        }
+
+        public string CreateMessageString()
+        {
+            string messageFull = DateTime.Now.ToShortTimeString() + " - " + name + ": " + message;
+            return messageFull;
         }
     }
 }

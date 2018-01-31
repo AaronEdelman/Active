@@ -133,10 +133,17 @@ else if (Model.ActivityJoined == 0)
                     </div>
                 </td>
             </tr>
-            
+            <tr>
+                <td colspan="5">
+                <h3>Participant Messages</h3>
+                @foreach (var message in Model.Messages)
+                {
+                <p >@message</p>
+                }
+                </td>
+            </tr>
         }
     </table>
-    
     <br />
     <br />
     <br />
@@ -320,6 +327,15 @@ else
                     @Html.ActionLink("Edit Activity", "EditActivity", new { id = activity.Activity.Id })<br />
                     @Html.ActionLink("Delete Activity", "DeleteActivity", new { id = activity.Activity.Id })<br />
                     @Html.ActionLink("Directions", "ViewDirections", new { id = activity.Activity.Id })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <h3>Participant Messages</h3>
+                    @foreach (var message in Model.Messages)
+                    {
+                        <p>@message</p>
+                    }
                 </td>
             </tr>
         }

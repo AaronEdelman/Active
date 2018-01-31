@@ -14,5 +14,7 @@ namespace Active.Models
         public int ActivityJoined { get; set; }
         public string UserId { get; set; }
         public bool CheckedIn { get; set; }
+        public List<string> Messages { get; set; }
+
     }
 }
