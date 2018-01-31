@@ -1,0 +1,8 @@
+﻿@model Active.Models.MainPageViewModel
+
+@using (Html.BeginForm("Message", "Meetup", FormMethod.Post))
+{
+@Html.TextBoxFor(model => model.UserId," ", new { htmlAttributes = new { @class = "form-control" } })
+<input type="submit" value="Message" class="btn btn-default" />
+}
+

@@ -133,8 +133,10 @@ else if (Model.ActivityJoined == 0)
                     </div>
                 </td>
             </tr>
+            
         }
     </table>
+    
     <br />
     <br />
     <br />
@@ -150,45 +152,45 @@ else if (Model.ActivityJoined == 0)
             <th>Time End</th>
             <th>Participants</th>
         </tr>
-        @foreach (var activity in Model.Activities_Invitees.Where(n => n.Activity.CreatorId != Model.UserId))
+        @for (int i = 0; i< Model.Activities_Invitees.Where(n => n.Activity.CreatorId != Model.UserId).Count(); i++)
         {
             <tr>
                 <td>
                     <div>
-                        <p>@activity.Activity.Name</p>
+                        <p>@Model.Activities_Invitees[i].Activity.Name</p>
                     </div>
                 </td>
                 <td>
                     <div>
-                        <p>@activity.Activity.Description</p>
+                        <p>@Model.Activities_Invitees[i].Activity.Description</p>
                     </div>
                 </td>
                 <td>
                     <div>
-                        <p>@activity.Distance</p>
+                        <p>@Model.Activities_Invitees[i].Distance</p>
                     </div>
                 </td>
                 <td>
                     <div>
-                        <p>$@activity.Activity.CostPerUser</p>
+                        <p>$@Model.Activities_Invitees[i].Activity.CostPerUser</p>
                     </div>
                 </td>
                 <td>
                     <div>
-                        <p>@activity.timeStart</p>
+                        <p>@Model.Activities_Invitees[i].timeStart</p>
                     </div>
                 </td>
                 <td>
                     <div>
-                        <p>@activity.timeEnd</p>
+                        <p>@Model.Activities_Invitees[i].timeEnd</p>
                     </div>
                 </td>
                 <td>
                     <div>
-                        @Html.DropDownList("Joined", activity.Invitees, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownList("Joined", @Model.Activities_Invitees[i].Invitees, htmlAttributes: new { @class = "form-control" })
                     </div>
                 </td>
-                @if (activity.Invitees.Count() == activity.Activity.Invitees)
+                @if (Model.Activities_Invitees[i].Invitees.Count() == Model.Activities_Invitees[i].Activity.Invitees)
                 {
                     <td>
                         <div>
@@ -198,11 +200,16 @@ else if (Model.ActivityJoined == 0)
                 }
                 else
                 {
-                <td>
+                    <td>
+                          <div>
+                               <button id="activeButton" class="linkAction" onclick="location.href='@Url.Action("JoinActivities", "Meetup", new { id = Model.Activities_Invitees[i].Activity.Id})'">Join</button>
+                          </div>
+                    </td>
+                @*<td>
                     <div>
                         <button id="activeButton" onclick="location.href='@Url.Action("JoinActivities", "Meetup", new { id = activity.Activity.Id })'">Join</button>
                     </div>
-                </td>
+                </td>*@
                 }
                 <td>
                     <div>
@@ -211,7 +218,7 @@ else if (Model.ActivityJoined == 0)
                 </td>
                 <td>
                     <div>
-                        @Html.ActionLink("Directions", "ViewDirections", new { id = activity.Activity.Id })
+                        @Html.ActionLink("Directions", "ViewDirections", new { id = Model.Activities_Invitees[i].Activity.Id })
                      </div>
                 </td>
             </tr>
@@ -396,8 +403,28 @@ else
                 <td>
                     <div>
                         @Html.ActionLink("Directions", "ViewDirections", new { id = activity.Activity.Id })<br />
-                        @if (activity.Activity.CostPerUser > 0 && activity.Activity.Id == Model.ActivityJoined)
+                        @if (activity.Activity.Id == Model.ActivityJoined)
                         {
+                            <a href="#" data-toggle="modal" data-target="#secondModal" style="float: right;">Message Creator</a>
+                            <div class="modal fade" id="secondModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <a href="#" class="close" data-dissmiss="modal">&times;</a>
+                                            <h3 class="modal-title">Message Activity Creator</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            @Html.Partial("Message")
+                                        </div>
+                                        <div class="modal-footer">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        @if (activity.Activity.CostPerUser > 0 && activity.Activity.Id == Model.ActivityJoined)
+                                {
+                                    activity.Activity.CostPerUser = activity.Activity.CostPerUser * 100;
                             <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                     data-key="pk_test_6pRNASCoBOKtIshFeQd4XMUh"
                                     data-amount=@activity.Activity.CostPerUser
@@ -428,4 +455,6 @@ else
             text-align:"right"
         }
 </style>*@
+
+
 

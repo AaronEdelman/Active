@@ -8,8 +8,8 @@ namespace Active
     public class Joiner
     {
         public string name;
-        public int ratingTotal;
-        public int ratingCount;
+        public float ratingTotal;
+        public float ratingCount;
 
         public Joiner (string name, int ratingTotal, int ratingCount)
         {
@@ -22,12 +22,13 @@ namespace Active
         {
             string rating = GetRatingAverage();
             string count = ConvertCountToString();
-            string rating_Count = name + rating + count;
+            string rating_Count = name + " ★" + rating + count;
             return rating_Count;
         }
         private string GetRatingAverage()
         {
-            string rating = (ratingTotal / ratingCount).ToString();
+            float ratingAvg = (ratingTotal / ratingCount);
+            string rating = Math.Round(ratingAvg, 1).ToString();
             return rating;
         }
         private string ConvertCountToString()

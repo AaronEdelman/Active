@@ -350,6 +350,19 @@ namespace Active.Controllers
             directions.Checkin.Longitude = userLongitude;
             return View(directions);
         }
-
+        [HttpGet]
+        public ActionResult Message()
+        {
+            return PartialView("Message");
+        }
+        [HttpPost]
+        public ActionResult Message(MainPageViewModel model)
+        {
+            var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            UserToActivityModel userToActivity = db.UserToActivity.Include(n => n.Activity).Where(n => n.UserId == UserId).Where(n => n.Activity.Active == true).First();
+            userToActivity.Message = model.UserId; //UserId is a holder for message here.
+            db.SaveChanges();
+            return RedirectToAction("ViewActivities");
+        }
     }
 }

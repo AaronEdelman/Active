@@ -29,6 +29,16 @@ namespace Active
                 RateeId = UrlParameter.Optional
             });
             routes.MapRoute(
+            "JoinActivity",
+            "Meetup/JoinActivities/{Id}/{Message}",
+            new
+            {
+                controller = "Meetup",
+                action = "JoinActivities",
+                Id = UrlParameter.Optional,
+                Message = UrlParameter.Optional
+            });
+            routes.MapRoute(
             "Rate_Email",
             "Meetup/Rate_Email/{Id}/{RateeId}/{rateeEmail}/{rateeName}/{activityName}/{activityDate}",
             new
