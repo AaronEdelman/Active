@@ -61,5 +61,9 @@ namespace Active
             }
             return distance;
         }
+        //public static string ConstructUsersDistance(int users100ft, int users300ft, int users1000ft, int usersHalf, int usersMile, int users5Mile)
+        //{
+
+        //}
     }
 }

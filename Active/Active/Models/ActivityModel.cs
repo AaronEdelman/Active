@@ -12,7 +12,11 @@ namespace Active.Models
     {
         [Key]
         public int Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string Description { get; set; }
 
         [DataType(DataType.DateTime)]
@@ -24,13 +28,19 @@ namespace Active.Models
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:YYYY-MM-DD hh:mm:ss}", ApplyFormatInEditMode = true)]
         public DateTime TimeEnd { get; set; }
+
+        [Required]
+        [Display(Name = "Activity Length (minutes)")]
         public double ActivityLength { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public double Area { get; set; }
-        [Display(Name = "Cost per Invitee")]
+        [Display(Name = "Cost per Person")]
         public float CostPerUser { get; set; }
         public bool Active { get; set; }
+
+        [Required]
+
         public int Invitees { get; set; }
         public string CreatorId { get; set; }
         [ForeignKey("CreatorId")]

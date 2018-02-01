@@ -1,7 +1,10 @@
 ﻿@model Active.Models.MainPageViewModel
 <html>
-<head>
+<head runat="server">
+    @*<meta http-equiv="refresh" content="5" />*@
     <style>
+        
+
         #disabledButton {
             opacity: .6;
         }
@@ -25,7 +28,7 @@
     {
         <br />
         <br />
-        <h4 id="Checkedin">Your checkin is over an hour old.  Check in again if your location has changed.</h4>
+        <h4 id="Checkedin">Your checkin is over an hour old.  Please checkin again to be see or create Activities.</h4>
     }
     @if (Model.Activities_Invitees.Count == 0)
     {
@@ -39,6 +42,8 @@
                         <h3 class="modal-title">Activity</h3>
                     </div>
                     <div class="modal-body">
+                        <p>* If your activity will take place at a different location than your checkin, please re-checkin at your activity location before creating the activity.</p>
+
                         @Html.Partial("_CreateActivity", new Active.Models.ActivityModel())
                     </div>
                     <div class="modal-footer">
@@ -78,6 +83,7 @@
                         <h3 class="modal-title">Activity</h3>
                     </div>
                     <div class="modal-body">
+                        <p>* If your activity will take place at a different location than your checkin, please re-checkin at your activity location before creating the activity.</p>
                         @Html.Partial("_CreateActivity", new Active.Models.ActivityModel())
                     </div>
                     <div class="modal-footer">
@@ -261,6 +267,7 @@
                         <h3 class="modal-title">Activity</h3>
                     </div>
                     <div class="modal-body">
+                        <p>* If your activity will take place at a different location than your checkin, please re-checkin at your activity location before creating the activity.</p>
                         @Html.Partial("_CreateActivity", new Active.Models.ActivityModel())
                     </div>
                     <div class="modal-footer">
@@ -438,7 +445,7 @@
                             @Html.ActionLink("Directions", "ViewDirections", new { id = activity.Activity.Id })<br />
                             @if (activity.Activity.Id == Model.ActivityJoined)
                             {
-                                <a href="#" data-toggle="modal" data-target="#secondModal" style="float: right;">Message Creator</a>
+                                <a href="#" data-toggle="modal" data-target="#secondModal" >Message Creator</a>
                                 <div class="modal fade" id="secondModal">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
