@@ -4,7 +4,8 @@
     ViewBag.Title = "MyInteractions";
 }
 
-<h2>MyInteractions</h2>
+<h2>My Interactions </h2>
+<p id="supplication">Please help other users by rating your interaction</p>
 <table class="table" width="80%">
 
     @for (int i = 0; i< Model.Interactions.Count; i++)
@@ -27,12 +28,12 @@
             </td>
             <td>
                 <div>
-                    <button id="button1" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 0 , RateeId = @Model.Interactions[i].User.Id})'">No Show</button>
-                    <button id="button2" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 1 , RateeId = @Model.Interactions[i].User.Id})'">Garbage Person</button>
-                    <button id="button3" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 2 , RateeId = @Model.Interactions[i].User.Id})'">Not Great</button>
-                    <button id="button4" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 3 , RateeId = @Model.Interactions[i].User.Id})'">So-so</button>
-                    <button id="button5" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 4 , RateeId = @Model.Interactions[i].User.Id})'">Good</button>
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#@("tr"+i)">Great</a>
+                    <button id="button1" class="btn btn-warning" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 0 , RateeId = @Model.Interactions[i].User.Id})'">No Show</button>
+                    <button id="button2" class="btn btn-info"onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 1 , RateeId = @Model.Interactions[i].User.Id})'">①</button>
+                    <button id="button3" class="btn btn-info"onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 2 , RateeId = @Model.Interactions[i].User.Id})'">②</button>
+                    <button id="button4" class="btn btn-info"onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 3 , RateeId = @Model.Interactions[i].User.Id})'">③</button>
+                    <button id="button5" class="btn btn-info"onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 4 , RateeId = @Model.Interactions[i].User.Id})'">④</button>
+                    <a href="#" class="btn btn-info" id="button6" data-toggle="modal" data-target="#@("tr"+i)">⑤</a>
                     <div class="modal fade" id="@("tr"+i)">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -42,9 +43,9 @@
                                 </div>
                                 <div class="modal-body">
                                     <p>Looks like you and @Model.Interactions[i].User.FirstName had a good time!</p>
-                                    <p>Would you like to send them your email for future hang-outs?</p>
-                                    <button id="button6" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 5 , RateeId = Model.Interactions[i].User.Id}) '">No</button>thanks, just the rating today.
-                                    <button id="button6" onclick="location.href='@Url.Action("Rate_Email", "Meetup", new { id = 5 , RateeId = Model.Interactions[i].User.Id, RateeEmail = Model.Interactions[i].User.Email, RateeName = Model.Interactions[i].User.FirstName, ActivityName = Model.Interactions[i].Activity.Name, ActivityDate = Model.Interactions[i].Activity.TimeStart}) '">Yes</button>send them my full name and Email.
+                                    <p>Would you like to send them your email to get in touch for for future hang-outs?</p>
+                                    <button id="button7" class="btn btn-info" onclick="location.href='@Url.Action("Rate", "Meetup", new { id = 5 , RateeId = Model.Interactions[i].User.Id}) '">No</button>thanks, just the rating today.<br />
+                                    <button id="button7" class="btn btn-info" onclick="location.href='@Url.Action("Rate_Email", "Meetup", new { id = 5 , RateeId = Model.Interactions[i].User.Id, RateeEmail = Model.Interactions[i].User.Email, RateeName = Model.Interactions[i].User.FirstName, ActivityName = Model.Interactions[i].Activity.Name, ActivityDate = Model.Interactions[i].Activity.TimeStart}) '">Yes</button>send them my full name and Email.
                                 </div>
                                 <div class="modal-footer">
                                 </div>
@@ -56,5 +57,46 @@
         </tr>
     }
 </table>
+<style>
+    #button1{
+        background-color: white;
+        color: red;
+        border: 2px solid red;
+    }
+    #button2{
+        background-color: white;
+        color: orange;
+        border: 2px solid orange;
+    }
+    #button3{
+        background-color: white;
+        color: rgb(196,191,15);
+        border: 2px solid rgb(196,191,15);
+    }
+    #button4{
+        background-color: white;
+        color: green;
+        border: 2px solid green;
+    }
+    #button5{
+        background-color: white;
+        color: blue;
+        border: 2px solid blue;
+    }
+    #button6{
+        background-color: white;
+        color: violet;
+        border: 2px solid violet;
+    }
+
+    #supplication
+    {
+        text-align:right;
+        padding-right: 180px;
+    }
+    h2{
+       font-family: Impact;
+    }
+</style>
 
 

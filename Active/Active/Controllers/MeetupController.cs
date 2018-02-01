@@ -27,7 +27,7 @@ namespace Active.Controllers
             //inactivate checkins over an hour old
             foreach (var row in db.Checkin.Where(n => n.Active == true))
             {
-                if (DateTime.Now >= row.CheckinTime.AddHours(1)))
+                if (DateTime.Now >= row.CheckinTime.AddHours(1))
                 {
                     row.Active = false;
                 }
