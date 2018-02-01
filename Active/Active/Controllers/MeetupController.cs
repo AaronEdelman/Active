@@ -373,50 +373,58 @@ namespace Active.Controllers
             db.SaveChanges();
             return RedirectToAction("ViewActivities");
         }
-        //[HttpGet]
-        //public ActionResult DisplayUsers()
-        //{
-        //    var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
-        //    double userLatitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Latitude).First();
-        //    double userLongitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Longitude).First();
-        //    int users100ft = 0;
-        //    int users300ft = 0;
-        //    int users1000ft = 0;
-        //    int usersHalf = 0;
-        //    int usersMile = 0;
-        //    int users5Mile = 0;
+        
+        public ActionResult DisplayUsers()
+        {
+            DisplayUsersViewModel main = new DisplayUsersViewModel();
 
-        //    foreach (var activeUser in db.Checkin.Where(n => n.Active==true))
-        //    {
+            try
+            {
+                var UserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+                double userLatitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Latitude).First();
+                double userLongitude = (from x in db.Checkin where x.UserId == UserId && x.Active == true select x.Longitude).First();
+                int users100ft = 0;
+                int users300ft = 0;
+                int users1000ft = 0;
+                int usersHalf = 0;
+                int usersMile = 0;
+                int users5Mile = 0;
 
-        //        double userDistance = DistanceFinder.FindActivitiesDistance(userLatitude, userLongitude, activeUser.Latitude, activeUser.Longitude);
+                foreach (var activeUser in db.Checkin.Where(n => n.Active == true).Where(n => n.UserId != UserId))
+                {
 
-        //        if (userDistance < .00036)
-        //        {
-        //            users100ft += 1;
-        //        }
-        //        if (userDistance < .00109)
-        //        {
-        //            users300ft += 1;
-        //        }
-        //        if (userDistance <.00363)
-        //        {
-        //            users1000ft += 1;
-        //        }
-        //        if (userDistance <.00958)
-        //        {
-        //            usersHalf += 1;
-        //        }
-        //        if (userDistance < .01916)
-        //        {
-        //            usersMile += 1;
-        //        }
-        //        if (userDistance < .09581)
-        //        {
-        //            users5Mile += 1;
-        //        }
-        //    }
-        //    string usersDistance = DistanceFinder.ConstructUsersDistance(users100ft, users300ft, users1000ft, usersHalf, usersMile, users5Mile);
-        //}
+                    double userDistance = DistanceFinder.FindActivitiesDistance(userLatitude, userLongitude, activeUser.Latitude, activeUser.Longitude);
+
+                    if (userDistance < .00036)
+                    {
+                        users100ft += 1;
+                    }
+                    if (userDistance < .00109)
+                    {
+                        users300ft += 1;
+                    }
+                    if (userDistance < .00363)
+                    {
+                        users1000ft += 1;
+                    }
+                    if (userDistance < .00958)
+                    {
+                        usersHalf += 1;
+                    }
+                    if (userDistance < .01916)
+                    {
+                        usersMile += 1;
+                    }
+                    if (userDistance < .09581)
+                    {
+                        users5Mile += 1;
+                    }
+                }
+                string usersDistance = DistanceFinder.ConstructUsersDistance(users100ft, users300ft, users1000ft, usersHalf, usersMile, users5Mile);
+                main.Users_Distance = usersDistance;
+            }
+            catch { main.Users_Distance = null; }
+            return PartialView(main);
+        }
     }
 }
