@@ -264,6 +264,10 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\FrontPage.png" />
+    <Content Include="Images\green-background.png" />
+    <Content Include="Images\orange-background.png" />
+    <Content Include="Images\purple-background.png" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -283,6 +287,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="Views\Meetup\Images\green-background.png" />
+    <Content Include="Views\Meetup\Images\orange-background.png" />
+    <Content Include="Views\Meetup\Images\purple-background.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

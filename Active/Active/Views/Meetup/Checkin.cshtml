@@ -24,14 +24,24 @@
 
             body {
                 height: 100%;
-                margin: 0;
+                margin: 40px;
                 padding: 0;
-                vertical-align: top;
-            }
 
+            }
+            h1
+            {
+                
+                font-family: Impact;
+            }
             #map_canvas {
                 height: 100%;
             }
+            #submitButton{
+                margin: 8px;
+            }
+            h5 {
+            }
+            
         </style>
 
         <script type="text/javascript"
@@ -42,7 +52,7 @@
         function initialize() {
             var myLatlng = new google.maps.LatLng(43.038902, -87.906471);
             var myOptions = {
-                zoom: 7,
+                zoom: 19,
                 center: myLatlng,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             }
@@ -141,9 +151,7 @@
 
             <center class="row">
                 <div class="form-group">
-                    <div class="col-md-offset-2 col-md-5">
-                        <input type="submit" value="Set Location" class="btn btn-default" label="Checkin" />
-                    </div>
+                        <input id="submitButton" type="submit" value="Set Location" class="btn btn-primary" label="Checkin" />
                 </div>
 
                 @*<button onclick="location.href='@Url.Action("CreateActivity")';return false;">Create Activity</button>*@
@@ -158,28 +166,5 @@
 <link href="~/Content/boostrap.min.css" rel="stylesheet" />
 <script src="~/Scripts/bootstrap.min.js"></script>
 
-<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Create Activity</a>
 
-@*<style>
-    .modal{
-        background-color: forestgreen;
-    }
-</style>*@
-<div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <a href="#" class="close" data-dissmiss="modal">&times;</a>
-                <h3 class="modal-title">Activity</h3>
-            </div>
-            <div class="modal-body">
-                @Html.Partial("_CreateActivity", new Active.Models.ActivityModel())
-            </div>
-            <div class="modal-footer">
-                @*<a href="#" class="btn btn-default" data-dissmiss="modal">Cancel</a>
-                    <input type="reset" value="Submit" class="btn btn-success" id="btnSubmit">Submit</a>*@
-            </div>
-        </div>
-    </div>
-</div>
 
