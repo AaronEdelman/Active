@@ -19,11 +19,14 @@
         h2 {
             font-family: Impact;
         }
-
+        #usersPartial{
+            display: inline-block;
+            text-align:center;
+            padding-left:300px;
+        }
     </style> 
 </head>
 <body>
-    @Html.Action("DisplayUsers")
     @if (Model.CheckedIn == false)
     {
         <br />
@@ -33,7 +36,10 @@
     @if (Model.Activities_Invitees.Count == 0)
     {
         <h2>My Created Activity</h2>
-        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right;">Create Activity</a>
+        <div id="usersPartial">
+            @Html.Action("DisplayUsers")
+        </div>
+        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right;" id="createModal">Create Activity</a>
         <div class="modal fade" id="myModal">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -74,6 +80,9 @@
     else if (Model.ActivityJoined == 0)
     {
         <h2>My Created Activity</h2>
+        <div id="usersPartial">
+            @Html.Action("DisplayUsers")
+        </div>        
         <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right;">Create Activity</a>
         <div class="modal fade" id="myModal">
             <div class="modal-dialog">
@@ -258,6 +267,9 @@
     {
         <div id ="elseStatement">
         <h2>My Created Activity</h2>
+            <div id="usersPartial">
+                @Html.Action("DisplayUsers")
+            </div>
         <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float: right;">Create Activity</a>
         <div class="modal fade" id="myModal">
             <div class="modal-dialog">

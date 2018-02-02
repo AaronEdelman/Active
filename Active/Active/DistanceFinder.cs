@@ -63,7 +63,7 @@ namespace Active
         }
         public static string ConstructUsersDistance(int users100ft, int users300ft, int users1000ft, int usersHalf, int usersMile, int users5Mile)
         {
-            string usersDistance = "Users in your area: 100ft(" + users100ft + "), 300ft(" + users300ft + "), 1000ft(" + users1000ft + "), half mile(" + usersHalf + "), mile(" + usersMile + "), (" + users5Mile + ")";
+            string usersDistance = "Users in your area: 100ft(" + users100ft + "), 300ft(" + users300ft + "), 1000ft(" + users1000ft + "), half-mile(" + usersHalf + "), mile(" + usersMile + "), 5 miles(" + users5Mile + ")";
             return usersDistance;
         }
     }

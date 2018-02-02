@@ -1,6 +1,13 @@
 ﻿@model Active.Models.DisplayUsersViewModel
 
-@if(Model.Users_Distance != null)
+@if (Model.Users_Distance != null)
 {
-<p>@Model.Users_Distance</p>
+    <div id="partialP">
+        <p>@Model.Users_Distance</p>
+    </div>
 }
+<style>
+    #partialP{
+        font-weight:500;
+    }
+</style>

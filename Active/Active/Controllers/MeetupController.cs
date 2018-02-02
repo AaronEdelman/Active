@@ -152,6 +152,7 @@ namespace Active.Controllers
                 if (checkin.UserId == UserId)
                 {
                     main.CheckedIn = true;
+                    break;
                 }
                 else
                 {
